@@ -11,11 +11,12 @@ export default function Player() {
   // }
 
   function handleClickChangeName(){
-    setEnteredPlayerName(inputPlayer.current.value)
+    setEnteredPlayerName(inputPlayer.current.value);
+    inputPlayer.current.value = ""
   }
   return (
     <section id="player">
-      <h2>Welcome {enteredPlayerName ? enteredPlayerName : "unknown entity"}</h2>
+      <h2>Welcome {enteredPlayerName ? enteredPlayerName : " <<Dear User>>"}</h2>
       <p>
         <input type="text"  ref={inputPlayer} />
         <button onClick={handleClickChangeName}>Set Name</button>
