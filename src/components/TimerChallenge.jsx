@@ -5,11 +5,13 @@ export default function TimerChallenge({title , targetTime}){
     const [timerExpired , setTimerExpired] = useState(false);
     const [timerStarted , setTimerStarted] = useState(false);
     const timer = useRef()
+    const modalRef = useRef()
 
 
     function handleStartClick(){
     timer.current = setTimeout(() => {
         setTimerExpired(true);
+        modalRef.current.showModal();
     }, targetTime * 1000 );
 
     setTimerStarted(true);
@@ -17,11 +19,12 @@ export default function TimerChallenge({title , targetTime}){
 
     function handleStopClick(){
         clearTimeout(timer.current)
+        modalRef.current.showModal();
     }
 
     return (
         <>
-        {timerExpired && <ResultModal result={"you lost"}  targetTime={targetTime}/> }
+        {<ResultModal result={"you lost"}  targetTime={targetTime} ref={modalRef} />}
         <section className= "challenge">
             <h2>{title}</h2>
             {/* <p>{timerExpired && "you lost!"}</p> */}
