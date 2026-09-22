@@ -1,4 +1,5 @@
 import { useImperativeHandle, useRef } from "react"
+import { createPortal } from "react-dom";
 
 export default function ResultModal({ targetTime, ref, remainingTime, onRestart }) {
     const dialog = useRef()
@@ -14,7 +15,7 @@ export default function ResultModal({ targetTime, ref, remainingTime, onRestart 
     const lostTime = remainingTime <= 0
     const calculateTimeRamaining = (remainingTime / 1000).toFixed(2);
     const score = Math.round((1 - remainingTime / (targetTime * 1000)) * 100);
-    return (
+    return createPortal(
         <dialog className="result-modal" ref={dialog}>
             {lostTime && <h2>Ridi</h2>}
             {!lostTime && <h2>your score: {score}</h2>}
@@ -23,6 +24,7 @@ export default function ResultModal({ targetTime, ref, remainingTime, onRestart 
             <form method="dialog" onSubmit={onRestart}>
                 <button>close</button>
             </form>
-        </dialog>
+        </dialog>,
+        document.getElementById("modal")
     )
 }
